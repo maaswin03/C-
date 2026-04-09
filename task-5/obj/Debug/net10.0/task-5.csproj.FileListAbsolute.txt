@@ -1,0 +1,15 @@
+/Users/kyroz/Documents/vscode/c#/task-5/bin/Debug/net10.0/task-5
+/Users/kyroz/Documents/vscode/c#/task-5/bin/Debug/net10.0/task-5.deps.json
+/Users/kyroz/Documents/vscode/c#/task-5/bin/Debug/net10.0/task-5.runtimeconfig.json
+/Users/kyroz/Documents/vscode/c#/task-5/bin/Debug/net10.0/task-5.dll
+/Users/kyroz/Documents/vscode/c#/task-5/bin/Debug/net10.0/task-5.pdb
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/task-5.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/task-5.AssemblyInfoInputs.cache
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/task-5.AssemblyInfo.cs
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/task-5.csproj.CoreCompileInputs.cache
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/task-5.sourcelink.json
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/task-5.dll
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/refint/task-5.dll
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/task-5.pdb
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/task-5.genruntimeconfig.cache
+/Users/kyroz/Documents/vscode/c#/task-5/obj/Debug/net10.0/ref/task-5.dll

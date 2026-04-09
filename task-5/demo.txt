@@ -1,0 +1,2 @@
+Demo content is placeholder data—including text, images, and menu structures—used to populate a new website or theme, allowing users to visualize the final design before adding their own content. 
+It is essential for testing layout functionality, usually imported via XML files or theme setup wizards.
