@@ -1,0 +1,15 @@
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/Delegate.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/Delegate.AssemblyInfoInputs.cache
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/Delegate.AssemblyInfo.cs
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/Delegate.csproj.CoreCompileInputs.cache
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/Delegate.sourcelink.json
+/Users/kyroz/Documents/vscode/c#/Delegate/bin/Debug/net10.0/Delegate
+/Users/kyroz/Documents/vscode/c#/Delegate/bin/Debug/net10.0/Delegate.deps.json
+/Users/kyroz/Documents/vscode/c#/Delegate/bin/Debug/net10.0/Delegate.runtimeconfig.json
+/Users/kyroz/Documents/vscode/c#/Delegate/bin/Debug/net10.0/Delegate.dll
+/Users/kyroz/Documents/vscode/c#/Delegate/bin/Debug/net10.0/Delegate.pdb
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/Delegate.dll
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/refint/Delegate.dll
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/Delegate.pdb
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/Delegate.genruntimeconfig.cache
+/Users/kyroz/Documents/vscode/c#/Delegate/obj/Debug/net10.0/ref/Delegate.dll

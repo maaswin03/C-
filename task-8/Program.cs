@@ -1,161 +1,222 @@
-﻿// class Box<T> where T : class
-// {
-//     private T? _storage;
+﻿//requirements
+//1. application that demonstrate repository with student entity
 
-//     public T? GetValue()
-//     {
-//         return _storage;
-//     }
-
-//     public void SetValue(T value)
-//     {
-//         _storage = value;
-//     }
-
-//     public bool IsEmpty()
-//     {
-//         return _storage == null;
-//     }
-// }
-
-// class Program
-// {
-//     public static void Main(String[] args)
-//     {
-//         Box<string> b1 = new();
-
-//         Console.WriteLine(b1.IsEmpty());
-//         b1.SetValue("hello");
-//         Console.WriteLine(b1.GetValue());
-//         Console.WriteLine(b1.IsEmpty());
-//     }
-// }
-
-// class Pair<T> where T : IComparable<T>
-// {
-//     private T _variable1;
-//     private T _variable2;
-
-//     public Pair(T a, T b)
-//     {
-//         _variable1 = a;
-//         _variable2 = b;
-//     }
-
-//     public void Print()
-//     {
-//         Console.WriteLine($"VALUES ARE {_variable1} and {_variable2}");
-//     }
-
-//     public T GetMax()
-//     {
-//         if((_variable1).CompareTo(_variable2) > 0)
-//         {
-//             return _variable1;
-//         }
-//         return _variable2;
-//     }
-
-//     public bool IsEqual()
-//     {
-//         return (_variable1).CompareTo(_variable2) == 0;
-//     }
-
-// }
-
-// class Program
-// {
-//     public static void Main(String[] args)
-//     {
-//         Pair<int> p1 = new Pair<int>(10, 20);
-
-//         p1.Print();
-//         Console.WriteLine(p1.GetMax());
-//         Console.WriteLine(p1.IsEqual());
-//     }
-// }
-
-// class Mystack<T>
-// {
-//     readonly Stack<T> storage = new();
-
-//     public void Push(T item)
-//     {
-//         storage.Push(item);
-//     }
-
-//     public T Peek()
-//     {
-//         return storage.Peek();
-//     }
-
-//     public T Pop()
-//     {
-//         return storage.Pop();
-//     }
-
-//     public bool IsEmpty()
-//     {
-//         return storage.Count == 0;
-//     }
-// }
-
-// class Program
-// {
-//     public static void Main(String[] args)
-//     {
-//         Mystack<int> stack = new Mystack<int>();
-
-//         stack.Push(10);
-//         stack.Push(20);
-
-//         Console.WriteLine(stack.Peek());
-//         Console.WriteLine(stack.Pop());
-//     }
-// }
-
-
-class Filter<T>
+//interface for Repository
+interface IRepository<T>
 {
-    List<T> storage = new List<T> { };
+    void Add(T item);
+    void Delete(T item);
+    List<T> Get();
+
+    void Update(T item);
+}
+
+//interface for class and acts as constraint
+interface IStructure
+{
+    public int Id { get; set; }
+}
+
+//class for doing crud operations
+class Repository<T> : IRepository<T> where T : IStructure
+{
+    readonly List<T> storage = [];
 
     public void Add(T item)
     {
-        storage.Add(item);
+        //TODO - using database for adding data
+        try
+        {
+            if (!storage.Any(x => x.Id == item.Id))
+            {
+                storage.Add(item);
+                Console.WriteLine("DETAILS ADDED SUCCESSFULLY!");
+            }
+            else
+            {
+                Console.WriteLine("DETAILS ALREADY EXISTS");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
-    public List<T> GetAll()
+    public void Delete(T item)
     {
-        return storage;
+        //TODO - using database for deleting data
+        try
+        {
+            if (storage.Any(x => x.Id == item.Id))
+            {
+                storage.Remove(storage.Find(x => x.Id == item.Id));
+                Console.WriteLine("DETAILS DELETED SUCCESSFULLY!");
+            }
+            else
+            {
+                Console.WriteLine("DETAILS DOESN'T EXISTS");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
-    public List<T> FilterAll(Predicate<T> condition)
+
+    public List<T> Get()
     {
-        return storage.FindAll(condition);
+        //TODO - using database for getting data
+        try
+        {
+            return [.. storage];
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return [];
+        }
     }
 
-    public T Find(Predicate<T> condition)
+
+    public void Update(T item)
     {
-        return storage.Find(condition);
+        //TODO - using database for updating data
+        try
+        {
+            int index = storage.FindIndex(x => x.Id == item.Id);
+            if (index != -1)
+            {
+                storage[index] = item;
+                Console.WriteLine("DETAILS UPDATED SUCCESSFULLY");
+            }
+            else
+            {
+                Console.WriteLine("DETAILS WITH THE MENTIONED ID NOT EXISTS ");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
 
 }
 
+//student entity to get and set value
+class Student : IStructure
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public int Age { get; set; }
+}
+
+
 class Program
 {
-    public static void Main()
+    public static void Main(String[] args)
     {
-        Filter<int> f = new Filter<int>();
 
-        f.Add(10);
-        f.Add(20);
-        f.Add(30);
-
-        var result = f.FilterAll(x => x > 20);
-
-        foreach (var r in result)
+        try
         {
-            Console.WriteLine(r);
+            Repository<Student> obj = new();
+            string Name = "";
+            int Id;
+            int Age;
+
+            while (true)
+            {
+                Console.WriteLine("ENTER 1 FOR ADDING DETAILS ");
+                Console.WriteLine("ENTER 2 FOR REMOVING DETAILS ");
+                Console.WriteLine("ENTER 3 UPDATING DETAILS ");
+                Console.WriteLine("ENTER 4 DISPLAYING ALL DETAILS ");
+                Console.WriteLine("ENTER 0 FOR CLOSE ");
+                Console.WriteLine();
+
+                Console.Write("ENTER VALUE : ");
+                int n = Convert.ToInt32(Console.ReadLine());
+
+                //condition for adding data
+                if (n == 1)
+                {
+                    Console.Write("ENTER NAME TO BE ADDED : ");
+                    Name = Console.ReadLine().Trim();
+
+                    Console.Write("ENTER ID TO BE ADDED (UNIQUE) : ");
+                    Id = Convert.ToInt32(Console.ReadLine());
+
+                    Console.Write("ENTER AGE TO BE ADDED : ");
+                    Age = Convert.ToInt32(Console.ReadLine());
+
+                    obj.Add(new Student
+                    {
+                        Id = Id,
+                        Name = Name,
+                        Age = Age
+                    });
+                    Console.WriteLine();
+                }
+                //condition for deleting details
+                else if (n == 2)
+                {
+                    Console.Write("ENTER ID TO BE DELETED : ");
+                    Id = Convert.ToInt32(Console.ReadLine());
+
+                    obj.Delete(new Student
+                    {
+                        Id = Id
+                    });
+                    Console.WriteLine();
+                }
+                //condition for updating details
+                else if (n == 3)
+                {
+                    Console.Write("ENTER ID OF EXISTING DETAILS : ");
+                    Id = Convert.ToInt32(Console.ReadLine());
+
+                    Console.Write("ENTER UPDATED NAME : ");
+                    Name = Console.ReadLine().Trim();
+
+                    Console.Write("ENTER UPDATED AGE : ");
+                    Age = Convert.ToInt32(Console.ReadLine());
+
+                    obj.Update(new Student
+                    {
+                        Id = Id,
+                        Name = Name,
+                        Age = Age
+                    });
+                    Console.WriteLine();
+                }
+                //condition for displaying details
+                else if (n == 4)
+                {
+                    var result = obj.Get();
+                    if (result.Count > 0)
+                    {
+                        Console.WriteLine("THE BELOW ARE THE DETAILS OF EXISTING STUDENTS : ");
+                        foreach (var r in result)
+                        {
+                            Console.WriteLine($"{r.Id} - {r.Name} - {r.Age}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("NO DATA PRESENT IN DATABASE");
+                    }
+                    Console.WriteLine();
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
         }
     }
 }
