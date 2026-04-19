@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Task_10.Models;
+using Task_10.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -11,27 +12,48 @@ namespace Task_10.Controllers
     [Route("auth")]
     public class UserController : ControllerBase
     {
-        [HttpPost("login")]
-        public ActionResult Login(User user)
-        {
-            if (user.Username == "admin" && user.Password == "1234")
-            {
-                var token = GenerateJwtToken();
-                return Ok(new { token });
-            }
-            return Unauthorized();
-        }
- 
+        private readonly UserService _userService;
 
-        private string GenerateJwtToken()
+        public UserController(UserService userService)
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my_super_secret_key_12345_very_secure_key_2026"));
+            _userService = userService;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(User user)
+        {
+            var validUser = await _userService.ValidateUser(user.Username, user.Password);
+
+            if (validUser == null)
+                return Unauthorized();
+
+            var token = GenerateJwtToken(validUser);
+
+            return Ok(new { token });
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(User user)
+        {
+            var newUser = await _userService.AddUser(user);
+
+            if (newUser == null)
+                return BadRequest("User already exists");
+
+            return Ok(newUser);
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes("my_super_secret_key_12345_very_secure_key_2026"));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name,"admin")
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim("UserId", user.Id.ToString())
             };
 
             var token = new JwtSecurityToken(
